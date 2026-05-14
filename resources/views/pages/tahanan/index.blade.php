@@ -2,6 +2,9 @@
 @section('title')
     Data Tahanan
 @endsection
+
+
+
 @section('content')
 
 <h1>Data Tahanan</h1>

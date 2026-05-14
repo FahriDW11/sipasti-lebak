@@ -1,4 +1,4 @@
-<form action="/tahanan/{{ $tahanan->id }}" method="POST">
+<form action="/tahanan/{{ $tahanan->id }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <input name="nama" type="text" required placeholder="Nama Tahanan" value="{{ $tahanan->nama }}">
@@ -6,5 +6,8 @@
     <input name="alamat" type="text" required placeholder="Alamat" value="{{ $tahanan->alamat }}">
     <input name="jenis_kelamin" type="text" required placeholder="Jenis Kelamin" value="{{ $tahanan->jenis_kelamin }}">
     <input name="tgl_lahir" type="date" required placeholder="Tanggal Lahir" value="{{ $tahanan->tgl_lahir }}">
+    <input type="file" name="photo" accept="image/*" value="{{ $tahanan->photo }}">
+    <input type="checkbox" name="deleteOldPhoto">
+    <label for="deleteOldPhoto">Hapus Foto</label>
     <button type="submit">Update</button>
 </form>
