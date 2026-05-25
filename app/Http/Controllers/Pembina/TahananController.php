@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Pembina;
 
 use Illuminate\Http\Request;
 
-class PembinaController extends Controller
+class TahananController
 {
     /**
      * Display a listing of the resource.

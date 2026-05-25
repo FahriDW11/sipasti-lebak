@@ -11,7 +11,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->alias([
+            'role' => \App\Http\Middleware\CheckRole::class,
+        ]);
         //
+        $middleware->encryptCookies(except: [
+        'theme', // <--- DAFTARKAN DI SINI (Pastikan huruf kecil semua sesuai nama cookie)
+    ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Model
+class User extends Authenticatable
 {
     protected $fillable = [
         'username',
@@ -13,13 +13,17 @@ class User extends Model
         'status',
     ];
 
+    protected $casts = [
+        'password' => 'hashed',
+    ];
+
     protected $hidden = [
         'password',
     ];
 
     public function pembina()
     {
-        return $this->hasOne(Pembina::class);
+        return $this->hasOne(Pembina::class, 'user_id');
     }
    
 }

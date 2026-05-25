@@ -8,13 +8,12 @@ class Kegiatan extends Model
 {
     //fillable
     protected $fillable = [
-        'nama_kegiatan',
-        'keterangan',
-        'icon',
-        'warna',
+        'nama',
+        'deskripsi',
+        'photo',
     ];
 
-    public function log_kegiatan()
+    public function log_kegiatans()
     {
         return $this->hasMany(Log_kegiatan::class);
     }

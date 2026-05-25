@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('nama');
             $table->enum('jenis_kelamin', ['L', 'P']);
+            $table->enum('status',['active', 'inactive'])->default('active');
             $table->string('no_telp')->nullable();
             $table->string('email')->nullable();
             $table->string('photo')->nullable();

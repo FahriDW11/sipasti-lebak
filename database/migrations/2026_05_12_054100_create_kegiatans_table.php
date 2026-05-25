@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('kegiatans', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_kegiatan');
-            $table->string('keterangan')->nullable();
-            $table->string('icon')->nullable();
-            $table->string('warna')->nullable();
+            $table->string('nama');
+            $table->text('deskripsi')->nullable();
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }

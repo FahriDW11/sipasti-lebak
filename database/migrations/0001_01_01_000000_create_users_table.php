@@ -12,9 +12,14 @@ return new class extends Migration
             $table->id();
             $table->string('username')->unique();
             $table->string('password');
-            $table->enum('role', ['admin', 'pembina']);
+            $table->enum('role', ['pembina', 'admin', 'superadmin']);
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('users');
     }
 };

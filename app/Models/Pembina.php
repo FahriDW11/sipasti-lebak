@@ -23,8 +23,21 @@ class Pembina extends Model
     }
 
     //relasi ke tahanan
-    public function tahanan()
+    public function tahanans()
     {
         return $this->hasMany(Tahanan::class);
+    }
+
+    public function logKegiatans()
+    {
+        // Pembina ingin mengakses LogKegiatan melalui Tahanan
+        return $this->hasManyThrough(
+            Log_kegiatan::class, 
+            Tahanan::class, 
+            'pembina_id',   // Foreign key di tabel tahanans
+            'tahanan_id',   // Foreign key di tabel log_kegiatans
+            'id',           // Local key di tabel pembinas
+            'id'            // Local key di tabel tahanans
+        );
     }
 }
