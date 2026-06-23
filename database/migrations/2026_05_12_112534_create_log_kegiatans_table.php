@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('log_kegiatans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('tahanan_id')->constrained()->onDelete('cascade');
+            $table->foreignId('napi_id')->constrained()->onDelete('cascade');
             $table->foreignId('kegiatan_id')->constrained()->onDelete('cascade');
             $table->date('tanggal');
             $table->string('catatan')->nullable();

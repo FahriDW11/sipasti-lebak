@@ -35,60 +35,68 @@
 </div>
 <div class="divider"></div>
 
-<!-- Tahanan Binaan -->
+<!-- Warga Binaan -->
 <div class="w-full mt-4">
-    <div class="mx-2 mt-2 p-4 rounded-box border border-base-content/5 bg-base-100">
+    <div class="mx-1 lg:mx-2 mt-2 p-4 rounded-box border border-base-content/5 bg-base-100">
         <div class="flex">
-            <h3 class="text-lg font-bold">Tahanan Binaan</h3>
-            <button class="btn btn-sm btn-primary ml-auto tooltip tooltip-left" data-tip="Tambah Tahanan" onclick="document.getElementById('tambahTahananModal').showModal()">
+            <h3 class="text-lg font-bold">Warga Binaan</h3>
+            <button class="btn btn-sm btn-primary ml-auto tooltip tooltip-left" data-tip="Tambah Warga Binaan" onclick="document.getElementById('tambahWargaBinaanModal').showModal()">
                 <x-lucide-plus class="w-4 lg:w-6 text-white" />
             </button>
         </div>
-        <p class="text-sm">{{ $pembina->tahanans->count() }} tahanan</p>
-        <table class="table table-sm mt-2 md:table-md">
-            <tr>
-                <th>Nama</th>
-                <th>Umur</th>
-                <th>Alamat</th>
-            </tr>
-            @forelse($pembina->tahanans as $tahanan)
-            <tr>
-                <td>{{ $tahanan->nama }}</td>
-                <td>{{ $tahanan->umur }}</td>
-                <td>{{ $tahanan->alamat }}</td>
-            </tr>
-            @empty
-            <tr>
-                <td colspan="3" class="text-center">Tidak ada tahanan binaan.</td>
-            </tr>
-            @endforelse
-        </table>
+        <p class="text-sm">{{ $pembina->napis->count() }} warga binaan</p>
+        <div class="overflow-x-auto mt-2">
+            <table class="table table-sm mt-2 md:table-md">
+                <tr>
+                    <th>Foto</th>
+                    <th>Nama</th>
+                    <th>Alamat</th>
+                </tr>
+                @forelse($pembina->napis as $napi)
+                <tr>
+                    <td>
+                        <div class="avatar">
+                            <div class="w-10 rounded">
+                                <img src="{{ $napi->photo ? asset('storage/' . $napi->photo) : asset('storage/images/default-avatar.png') }}" alt="{{ $napi->nama }}">
+                            </div>
+                        </div>
+                    </td>
+                    <td class="w-1/2 max-w-xs truncate">{{ $napi->nama }}</td>
+                    <td class="w-1/2 max-w-xs truncate">{{ $napi->alamat }}</td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="3" class="text-center">Tidak ada warga binaan.</td>
+                </tr>
+                @endforelse
+            </table>
+        </div>
     </div>
 </div>
 
-<dialog class="modal" id="tambahTahananModal">
+<dialog class="modal" id="tambahWargaBinaanModal">
     <div class="modal-box">
-        <h3 class="font-bold text-lg mb-4">Tambah Tahanan Binaan</h3>
+        <h3 class="font-bold text-lg mb-4">Tambah Warga Binaan</h3>
         
-        <form action="{{ route('admin.pembina.assign-tahanan', $pembina->id) }}" method="post">
+        <form action="{{ route('admin.pembina.assign-napi', $pembina->id) }}" method="post">
             @csrf
             
             <div class="form-control w-full">
                 <label class="label">
-                    <span class="label-text font-semibold">Pilih Tahanan Binaan (Bisa Lebih dari Satu)</span>
+                    <span class="label-text font-semibold">Pilih Warga Binaan (Bisa Lebih dari Satu)</span>
                 </label>
 
-                <select id="pilih-tahanan" name="tahanan_ids[]" multiple placeholder="Ketik nama atau nomor tahanan..." autocomplete="off">
-                    @foreach($tahanans as $tahanan)
-                        <option value="{{ $tahanan->id }}">{{ $tahanan->nama }} bin {{ $tahanan->nama_ayah}}</option>
+                <select id="pilih-napi" name="napi_ids[]" multiple placeholder="Ketik nama atau nomor warga binaan..." autocomplete="off">
+                    @foreach($napis as $napi)
+                        <option value="{{ $napi->id }}">{{ $napi->nama }} bin {{ $napi->nama_ayah}}</option>
                     @endforeach
                 </select>
             </div>
 
             <div class="modal-action flex justify-end gap-2 mt-4">
-                <button type="button" class="btn btn-sm btn-error" onclick="document.getElementById('tambahTahananModal').close()">Batal</button>
+                <button type="button" class="btn btn-sm btn-error" onclick="document.getElementById('tambahWargaBinaanModal').close()">Batal</button>
                 
-                <button type="submit" class="btn btn-sm btn-primary">Tugaskan Tahanan</button>
+                <button type="submit" class="btn btn-sm btn-primary">Tugaskan Warga Binaan</button>
             </div>
         </form>
     </div>
@@ -102,13 +110,13 @@
 <script>
     // Pastikan DOM sudah termuat sepenuhnya
     document.addEventListener("DOMContentLoaded", function() {
-        new TomSelect("#pilih-tahanan", {
+        new TomSelect("#pilih-napi", {
             plugins: ['remove_button'], // Memunculkan tombol silang (x) untuk menghapus pilihan
             maxItems: null,             // Null artinya tidak ada batasan jumlah pilihan
             create: false,              // User tidak bisa menambahkan opsi teks baru di luar daftar
             render: {
                 no_results: function(data, escape) {
-                    return '<div class="no-results text-sm p-2 text-gray-500">Data tahanan tidak ditemukan...</div>';
+                    return '<div class="no-results text-sm p-2 text-gray-500">Data warga binaan tidak ditemukan...</div>';
                 }
             }
         });

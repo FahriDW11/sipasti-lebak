@@ -10,3 +10,56 @@
         light --default,
         dark --prefersdark;
 }
+
+@plugin "daisyui/theme" {
+    name: "light";
+    default: true;
+    --color-primary: #e8a020;
+    --color-primary-content: #0d1117;
+    --color-secondary: #2d4263;
+    --color-accent: #c0392b;
+    --color-neutral: #1e2530;
+    --color-neutral-content: #cdd9e5;
+    --color-info: #3a7bd5;
+    --color-success: #2ecc71;
+    --color-warning: #f39c12;
+    --color-error: #e74c3c;
+    --font-display: "Bebas Neue", sans-serif;
+    --font-body: "DM Sans", sans-serif;
+}
+
+@plugin "daisyui/theme" {
+    name: "dark";
+    default: true;
+    --color-base-100: #0d1117;
+    --color-base-200: #161b22;
+    --color-base-300: #1e2530;
+    --color-base-content: #cdd9e5;
+    --color-primary: #e8a020;
+    --color-primary-content: #0d1117;
+    --color-secondary: #2d4263;
+    --color-accent: #c0392b;
+    --color-neutral: #1e2530;
+    --color-neutral-content: #cdd9e5;
+    --color-info: #3a7bd5;
+    --color-success: #2ecc71;
+    --color-warning: #f39c12;
+    --color-error: #e74c3c;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Bebas Neue", sans-serif;
+}
+
+p,
+span,
+a,
+label,
+button {
+    font-family: "DM Sans", sans-serif;
+}

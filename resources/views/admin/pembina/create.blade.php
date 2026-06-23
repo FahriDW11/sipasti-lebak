@@ -5,6 +5,7 @@
 
 @section('admin-content')
 
+@include('layouts.components.error-alert')
 <div class="text-center mb-6">
     <h1 class="text-2xl font-bold mb-4">Tambah Pembina</h1>
 </div>

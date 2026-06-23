@@ -28,17 +28,17 @@
     <h3 class="text-lg font-semibold mx-4">Log Kegiatan</h3>
     <table class="table table-sm mt-2 md:table-md">
         <tr>
-            <th>Nama Tahanan</th>
+            <th>Nama Warga Binaan</th>
             <th>Tanggal Kegiatan</th>
         </tr>
         @forelse($kegiatan->log_kegiatans->sortByDesc('tanggal')->take(15) as $log)
         <tr>
-            <td>{{ $log->tahanan->nama }}</td>
-            <td>{{ $log->tanggal->format('d M Y') }}</td>
+            <td>{{ $log->napi->nama }}</td>
+            <td>{{ $log->tanggal_format }}</td>
         </tr>
         @empty
         <tr>
-            <td colspan="2" class="text-center">Belum ada tahanan yang mengikuti kegiatan ini.</td>
+            <td colspan="2" class="text-center">Belum ada warga binaan yang mengikuti kegiatan ini.</td>
         </tr>
         @endforelse
     </table>

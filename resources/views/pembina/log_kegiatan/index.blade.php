@@ -23,26 +23,26 @@
 <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
     <table class="table">
         <tr>
-            <th>Tahanan</th>
+            <th>Warga Binaan</th>
             <th>Kegiatan</th>
             <th>Tanggal</th>
             <th>Aksi</th>
         </tr>
         @forelse($logs as $log)
         <tr>
-            <td class="truncate w-full max-w-xs">{{ $log->tahanan->nama }} bin {{ $log->tahanan->nama_ayah }}</td>
+            <td class="truncate w-full max-w-xs">{{ $log->napi->nama }} bin {{ $log->napi->nama_ayah }}</td>
             <td>{{ $log->kegiatan->nama }}</td>
-            <td>{{ $log->tanggal }}</td>
+            <td class="whitespace-nowrap">{{ $log->tanggal_format }}</td>
             <td>
-                <div class="flex gap-0.5 justify-end">
-                    <a href="{{ route('pembina.log-kegiatan.show', $log->id) }}" class="btn btn-sm btn-info">
-                        <x-lucide-eye class="w-4 lg:w-6 text-white" />
+                <div class="flex gap-1 justify-end">
+                    <a href="{{ route('pembina.log-kegiatan.show', $log->id) }}" class="btn btn-sm btn-info rounded-xl">
+                        <x-lucide-eye class="w-4 text-white" />
                     </a>
-                    <a href="{{ route('pembina.log-kegiatan.edit', $log->id) }}" class="btn btn-sm btn-warning">
-                        <x-lucide-edit class="w-4 lg:w-6 text-white" />
+                    <a href="{{ route('pembina.log-kegiatan.edit', $log->id) }}" class="btn btn-sm btn-warning rounded-xl">
+                        <x-lucide-edit class="w-4 text-white" />
                     </a>
-                    <button type="button" onclick="openDeleteModal('{{ route('pembina.log-kegiatan.destroy', $log->id) }}', '{{ $log->tahanan->nama }}')" class="btn btn-sm btn-error">
-                        <x-lucide-trash class="w-4 lg:w-6 text-white" />
+                    <button type="button" onclick="openDeleteModal('{{ route('pembina.log-kegiatan.destroy', $log->id) }}', '{{ $log->napi->nama }}')" class="btn btn-sm btn-error rounded-xl">
+                        <x-lucide-trash class="w-4 text-white" />
                     </button>
                 </div>
             </td>

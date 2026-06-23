@@ -8,16 +8,23 @@ class Log_kegiatan extends Model
 {
     //fillable
     protected $fillable = [
-        'tahanan_id',
+        'napi_id',
         'kegiatan_id',
         'tanggal',
         'catatan',
     ];
 
-    //relasi dengan tahanan
-    public function tahanan()
+    //translate tanggal
+    public function getTanggalFormatAttribute()
     {
-        return $this->belongsTo(Tahanan::class);
+        return \Carbon\Carbon::parse($this->attributes['tanggal'])
+            ->translatedFormat('d F Y');
+    }
+
+    //relasi dengan napi
+    public function napi()
+    {
+        return $this->belongsTo(Napi::class);
     }
     
     //relasi dengan kegiatan

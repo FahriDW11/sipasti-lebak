@@ -39,12 +39,11 @@
             <td class="truncate w-full max-w-xs">{{ $pembina->nama }}</td>
             <td>
                 <div class="flex gap-0.5 justify-end">
-                    <a href="{{ route('admin.pembina.show', $pembina->id) }}" class="btn btn-sm btn-info"><x-lucide-eye class="w-4 lg:w-6 text-white" /></a>
-                    <a href="{{ route('admin.pembina.edit', $pembina->id) }}" class="btn btn-sm btn-warning"><x-lucide-edit class="w-4 lg:w-6 text-white" /></a>
-                        <button type="button" onclick="openDeleteModal('{{ route('admin.pembina.destroy', $pembina->id) }}', '{{ $pembina->nama }}')" class="btn btn-sm btn-error">
-                            <x-lucide-trash class="w-4 lg:w-6 text-white" />
+                    <a href="{{ route('admin.pembina.show', $pembina->id) }}" class="btn btn-sm rounded-xl tooltip tooltip-top btn-info" data-tip="Lihat"><x-lucide-eye class="w-4 text-white" /></a>
+                    <a href="{{ route('admin.pembina.edit', $pembina->id) }}" class="btn btn-sm rounded-xl tooltip tooltip-top btn-warning" data-tip="Edit"><x-lucide-edit class="w-4 text-white" /></a>
+                        <button type="button" onclick="openDeleteModal('{{ route('admin.pembina.destroy', $pembina->id) }}', '{{ $pembina->nama }}')" class="btn btn-sm rounded-xl tooltip tooltip-top btn-error" data-tip="Hapus">
+                            <x-lucide-trash class="w-4 text-white" />
                         </button>
-                    
                 </div>
             </td>
         </tr>

@@ -25,7 +25,12 @@ class DatabaseSeeder extends Seeder
         User::create([
             'username' => 'admin',
             'role' => 'admin',
-            'password' => 'admin#sipasti123',
+            'password' => 'admin#sibina123',
+        ]);
+        $this->call([
+            PembinaSeeder::class,
+            NapiSeeder::class,
+            KegiatanSeeder::class,
         ]);
     }
 }

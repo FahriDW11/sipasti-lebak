@@ -1,4 +1,4 @@
-<nav class="navbar w-full bg-primary/95 text-primary-content sticky top-0 z-50">
+<nav class="navbar w-full bg-base-100/80 backdrop-blur-md border-b border-base-300 sticky top-0 z-10">
   <label for="my-drawer-4" aria-label="open sidebar" class="btn btn-square btn-ghost">
     <!-- Sidebar toggle icon (Menggunakan Lucide PanelLeftClose) -->
     <x-lucide-panel-left-close class="my-1.5 inline-block size-4" />

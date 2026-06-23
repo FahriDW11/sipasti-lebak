@@ -22,22 +22,22 @@ class Pembina extends Model
         return $this->belongsTo(User::class);
     }
 
-    //relasi ke tahanan
-    public function tahanans()
+    //relasi ke napi
+    public function napis()
     {
-        return $this->hasMany(Tahanan::class);
+        return $this->hasMany(Napi::class);
     }
 
     public function logKegiatans()
     {
-        // Pembina ingin mengakses LogKegiatan melalui Tahanan
+        // Pembina ingin mengakses LogKegiatan melalui Napi
         return $this->hasManyThrough(
             Log_kegiatan::class, 
-            Tahanan::class, 
-            'pembina_id',   // Foreign key di tabel tahanans
-            'tahanan_id',   // Foreign key di tabel log_kegiatans
+            Napi::class, 
+            'pembina_id',   // Foreign key di tabel napis
+            'napi_id',   // Foreign key di tabel log_kegiatans
             'id',           // Local key di tabel pembinas
-            'id'            // Local key di tabel tahanans
+            'id'            // Local key di tabel napis
         );
     }
 }

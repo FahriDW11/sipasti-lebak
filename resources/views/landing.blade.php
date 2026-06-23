@@ -1,8 +1,19 @@
-@extends('layouts.app', [
-    'title' => 'Beranda'
-])
+<!DOCTYPE html>
+<html lang="id" data-theme="mytheme">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SIPENTA — Sistem Informasi Pemantauan Tahanan</title>
 
-@section('head')
+    {{-- DaisyUI + Tailwind --}}
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    {{-- Google Fonts --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+
     <style>
         /* ── Custom Theme ── */
         [data-theme="mytheme"] {
@@ -179,12 +190,9 @@
                 }
             }
         }
-
-        
     </script>
-@endsection
+</head>
 
-@section('content')
 <body class="min-h-screen text-base-content">
 
 {{-- ════════════════════════════════════════
@@ -202,14 +210,14 @@
                     </svg>
                 </div>
             </div>
-            <span class="font-display text-xl tracking-widest text-white">{{ env('APP_NAME') }} Rangkasbitung</span>
+            <span class="font-display text-xl tracking-widest text-white">SIPENTA</span>
         </div>
     </div>
 
     <div class="navbar-center hidden md:flex">
         <ul class="menu menu-horizontal gap-1 text-sm font-medium">
             <li><a href="#" class="rounded-lg hover:bg-white/5 hover:text-[#e8a020] transition-colors">Beranda</a></li>
-            <li><a href="#steps" class="rounded-lg hover:bg-white/5 hover:text-[#e8a020] transition-colors">Cara Pencarian</a></li>
+            <li><a href="#" class="rounded-lg hover:bg-white/5 hover:text-[#e8a020] transition-colors">Cara Pencarian</a></li>
             <li><a href="#" class="rounded-lg hover:bg-white/5 hover:text-[#e8a020] transition-colors">Kontak</a></li>
         </ul>
     </div>
@@ -219,7 +227,7 @@
             <span class="w-2 h-2 rounded-full bg-success pulse-dot inline-block"></span>
             Sistem Aktif
         </div>
-        <a href="{{ route('login') }}" class="btn btn-sm btn-outline border-[#e8a020]/40 text-[#e8a020] hover:bg-[#e8a020] hover:text-base-100 transition-all">
+        <a href="#" class="btn btn-sm btn-outline border-[#e8a020]/40 text-[#e8a020] hover:bg-[#e8a020] hover:text-base-100 transition-all">
             Masuk
         </a>
     </div>
@@ -256,18 +264,18 @@
             {{-- Headline --}}
             <h1 class="fade-in font-display text-6xl md:text-8xl leading-none tracking-wide text-white mb-4">
                 SISTEM INFORMASI<br/>
-                <span class="text-[#e8a020]">NARAPIDANA</span>
+                <span class="text-[#e8a020]">TAHANAN</span>
             </h1>
 
             {{-- Subheadline --}}
             <p class="fade-in text-base-content/60 text-lg md:text-xl max-w-xl mx-auto mb-12 leading-relaxed font-light">
-                Pantau kegiatan dan perkembangan narapidana secara transparan.<br/>
+                Pantau kegiatan dan perkembangan tahanan secara transparan.<br/>
                 Informasi terpercaya untuk keluarga yang peduli.
             </p>
 
             {{-- ── SEARCH BAR ── --}}
             <div class="fade-in w-full max-w-2xl mx-auto">
-                <form action="{{ route('search') }}" method="GET">
+                <form action="{{ route('tahanan.search') }}" method="GET">
                     @csrf
                     <div class="relative flex items-stretch gap-0 rounded-2xl overflow-hidden border border-white/10 bg-base-200/60 backdrop-blur-sm shadow-2xl focus-within:border-[#e8a020]/40 transition-all duration-300">
 
@@ -281,10 +289,10 @@
                         {{-- Input --}}
                         <input
                             type="text"
-                            name="keyword"
+                            name="nama"
                             id="search-nama"
-                            placeholder="Masukkan nama lengkap narapidana…"
-                            value="{{ request('keyword') }}"
+                            placeholder="Masukkan nama lengkap tahanan…"
+                            value="{{ request('nama') }}"
                             class="search-input flex-1 bg-transparent py-5 pr-4 text-white placeholder-base-content/30 text-base focus:outline-none"
                             autocomplete="off"
                         />
@@ -294,7 +302,7 @@
 
                         {{-- Button --}}
                         <button type="submit" class="search-btn m-2 btn bg-[#e8a020] hover:bg-[#e8a020]/90 border-none text-base-100 font-semibold tracking-wide px-8 rounded-xl text-sm transition-all">
-                            <x-lucide-search class="w-4 lg:w-6 text-white" />
+                            Cari Tahanan
                         </button>
                     </div>
 
@@ -324,17 +332,17 @@
             {{-- Stat 1 --}}
             <div class="stat-card card bg-base-200 border border-white/5 p-6 rounded-2xl">
                 <div class="flex items-start justify-between mb-3">
-                    <span class="text-xs text-base-content/40 uppercase tracking-widest">Total Napi</span>
+                    <span class="text-xs text-base-content/40 uppercase tracking-widest">Total Tahanan</span>
                     <div class="w-8 h-8 rounded-lg bg-[#e8a020]/10 flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[#e8a020]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
                         </svg>
                     </div>
                 </div>
-                <div class="font-display text-4xl text-white tracking-wide">{{ $napiCount }}</div>
+                <div class="font-display text-4xl text-white tracking-wide">1.248</div>
                 <div class="text-xs text-success mt-1 flex items-center gap-1">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
-                    Meningkat
+                    3.2% dari bulan lalu
                 </div>
             </div>
 
@@ -348,21 +356,21 @@
                         </svg>
                     </div>
                 </div>
-                <div class="font-display text-4xl text-white tracking-wide">{{ $logKegiatanCount }}</div>
+                <div class="font-display text-4xl text-white tracking-wide">8.493</div>
                 <div class="text-xs text-base-content/40 mt-1">Data diperbarui setiap hari</div>
             </div>
 
             {{-- Stat 3 --}}
             <div class="stat-card card bg-base-200 border border-white/5 p-6 rounded-2xl">
                 <div class="flex items-start justify-between mb-3">
-                    <span class="text-xs text-base-content/40 uppercase tracking-widest">Total Pembina</span>
+                    <span class="text-xs text-base-content/40 uppercase tracking-widest">Pencarian Hari Ini</span>
                     <div class="w-8 h-8 rounded-lg bg-success/10 flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                         </svg>
                     </div>
                 </div>
-                <div class="font-display text-4xl text-white tracking-wide">{{ $pembinaCount }}</div>
+                <div class="font-display text-4xl text-white tracking-wide">342</div>
                 <div class="text-xs text-base-content/40 mt-1 flex items-center gap-1">
                     <span class="w-1.5 h-1.5 rounded-full bg-success pulse-dot inline-block"></span>
                     Realtime
@@ -376,7 +384,7 @@
 {{-- ════════════════════════════════════════
      HOW IT WORKS
 ════════════════════════════════════════ --}}
-<section id="steps" class="py-20 border-t border-white/5 relative overflow-hidden">
+<section class="py-20 border-t border-white/5 relative overflow-hidden">
     <div class="glow-orb w-96 h-96 bg-[#2d4263]/20 absolute -right-40 top-10 blur-[100px] pointer-events-none"></div>
 
     <div class="container mx-auto px-6 max-w-5xl relative z-10">
@@ -399,10 +407,10 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>
                         </svg>
                     </div>
-                    <div class="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-[#e8a020] text-base-100 font-display text-sm flex items-center justify-center z-20">1</div>
+                    <div class="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-[#e8a020] text-base-100 font-display text-sm flex items-center justify-center">1</div>
                 </div>
                 <h3 class="font-semibold text-white text-base">Masukkan Nama</h3>
-                <p class="text-sm text-base-content/50 leading-relaxed">Ketik nama lengkap narapidana yang ingin Anda cari pada kolom pencarian di atas.</p>
+                <p class="text-sm text-base-content/50 leading-relaxed">Ketik nama lengkap tahanan yang ingin Anda cari pada kolom pencarian di atas.</p>
             </div>
 
             {{-- Step 2 --}}
@@ -413,10 +421,10 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                         </svg>
                     </div>
-                    <div class="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-[#e8a020] text-base-100 font-display text-sm flex items-center justify-center z-20">2</div>
+                    <div class="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-[#e8a020] text-base-100 font-display text-sm flex items-center justify-center">2</div>
                 </div>
-                <h3 class="font-semibold text-white text-base">Pilih Narapidana</h3>
-                <p class="text-sm text-base-content/50 leading-relaxed">Pilih narapidana yang sesuai dari daftar hasil pencarian yang ditampilkan sistem.</p>
+                <h3 class="font-semibold text-white text-base">Pilih Tahanan</h3>
+                <p class="text-sm text-base-content/50 leading-relaxed">Pilih tahanan yang sesuai dari daftar hasil pencarian yang ditampilkan sistem.</p>
             </div>
 
             {{-- Step 3 --}}
@@ -428,10 +436,10 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                         </svg>
                     </div>
-                    <div class="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-[#e8a020] text-base-100 font-display text-sm flex items-center justify-center z-20">3</div>
+                    <div class="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-[#e8a020] text-base-100 font-display text-sm flex items-center justify-center">3</div>
                 </div>
                 <h3 class="font-semibold text-white text-base">Lihat Kegiatan</h3>
-                <p class="text-sm text-base-content/50 leading-relaxed">Pantau seluruh kegiatan, jadwal, dan perkembangan narapidana secara lengkap dan transparan.</p>
+                <p class="text-sm text-base-content/50 leading-relaxed">Pantau seluruh kegiatan, jadwal, dan perkembangan tahanan secara lengkap dan transparan.</p>
             </div>
         </div>
     </div>
@@ -441,7 +449,7 @@
 {{-- ════════════════════════════════════════
      INFO BANNER
 ════════════════════════════════════════ --}}
-<section id="info-banner" class="py-6 border-t border-white/5">
+<section class="py-6 border-t border-white/5">
     <div class="container mx-auto px-6 max-w-5xl">
         <div class="alert bg-[#e8a020]/8 border border-[#e8a020]/20 rounded-2xl flex-col sm:flex-row gap-4 items-start sm:items-center px-6 py-5">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#e8a020] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -449,9 +457,11 @@
             </svg>
             <div class="flex-1">
                 <p class="font-medium text-white text-sm">Akses Terbatas untuk Keluarga</p>
-                <p class="text-xs text-base-content/50 mt-0.5">Layanan ini hanya menampilkan informasi kegiatan resmi. Data bersifat rahasia dan hanya dapat diakses oleh keluarga yang telah verifikasi tanggal lahir.</p>
+                <p class="text-xs text-base-content/50 mt-0.5">Layanan ini hanya menampilkan informasi kegiatan resmi. Data bersifat rahasia dan hanya dapat diakses oleh keluarga yang telah terverifikasi.</p>
             </div>
-            
+            <a href="#" class="btn btn-sm btn-ghost text-[#e8a020] border border-[#e8a020]/30 hover:bg-[#e8a020]/10 text-xs whitespace-nowrap rounded-xl">
+                Pelajari Lebih
+            </a>
         </div>
     </div>
 </section>
@@ -475,8 +485,8 @@
                     </div>
                 </div>
                 <div>
-                    <div class="font-display text-lg tracking-widest text-white">SIPASTI RANGKASBITUNG</div>
-                    <div class="text-xs text-base-content/35">Sistem Informasi Pemasyarakatan dan Status Napi Indonesia Rangkasbitung</div>
+                    <div class="font-display text-lg tracking-widest text-white">SIPENTA</div>
+                    <div class="text-xs text-base-content/35">Sistem Informasi Pemantauan Tahanan</div>
                 </div>
             </div>
 
@@ -489,15 +499,11 @@
 
             {{-- Copyright --}}
             <p class="text-xs text-base-content/25">
-                &copy; {{ date('Y') }} kementerian imigrasi dan pemasyarakatan. All rights reserved.
+                &copy; {{ date('Y') }} Kementerian Hukum & HAM
             </p>
         </div>
     </div>
 </footer>
 
-
-<script>
-    // ganti theme
-        document.documentElement.setAttribute('data-theme', 'mytheme');
-</script>
-@endsection 
+</body>
+</html>

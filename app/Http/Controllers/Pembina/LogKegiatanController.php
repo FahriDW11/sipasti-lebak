@@ -19,12 +19,12 @@ class LogKegiatanController
         $search = $request->input('search');
         $userId = Auth::id();
         $pembinaId = Pembina::where('user_id', $userId)->value('id');
-        $logs = Log_kegiatan::whereHas('tahanan', function ($query) use ($pembinaId,$search) {
+        $logs = Log_kegiatan::whereHas('napi', function ($query) use ($pembinaId,$search) {
             $query->where('pembina_id', $pembinaId);
             if($search){
                 $query->where('nama', 'like', "%{$search}%");
             }
-        })->with('tahanan')->latest()->paginate(10);
+        })->with('napi')->latest()->paginate(10);
 
         return view('pembina.log_kegiatan.index', compact('logs'));
     }
@@ -41,10 +41,10 @@ class LogKegiatanController
             return redirect()->back()->with('error', 'Profil data pembina Anda tidak ditemukan.');
         }
 
-        $tahanans = $pembina->tahanans()->select('id', 'nama')->get();
+        $napis = $pembina->napis()->select('id', 'nama')->get();
         $kegiatans = Kegiatan::all();
 
-        return view('pembina.log_kegiatan.create', compact('tahanans', 'kegiatans'));
+        return view('pembina.log_kegiatan.create', compact('napis', 'kegiatans'));
     }
 
     /**
@@ -55,29 +55,29 @@ class LogKegiatanController
         //
         $request->validate([
             'kegiatan_id'  => 'required|exists:kegiatans,id',
-            'tahanan_ids'  => 'required|array|min:1', // Minimal harus mencentang 1 orang
-            'tahanan_ids.*'=> 'exists:tahanans,id',
+            'napi_ids'  => 'required|array|min:1', // Minimal harus mencentang 1 orang
+            'napi_ids.*'=> 'exists:napis,id',
             'tanggal'      => 'required|date',
             'catatan'      => 'nullable|string|max:255'
         ]);
 
         $kegiatanId = $request->input('kegiatan_id');
-        $tahananIds = $request->input('tahanan_ids');
+        $napiIds = $request->input('napi_ids');
         $tanggal    = $request->input('tanggal');
         $catatan    = $request->input('catatan');
 
-        // Looping untuk menyimpan record log ke masing-masing tahanan yang dipilih
-        foreach ($tahananIds as $tahananId) {
+        // Looping untuk menyimpan record log ke masing-masing napi yang dipilih
+        foreach ($napiIds as $napiId) {
             Log_kegiatan::create([
                 'kegiatan_id' => $kegiatanId,
-                'tahanan_id'  => $tahananId,
+                'napi_id'  => $napiId,
                 'tanggal'     => $tanggal,
                 'catatan'     => $catatan
             ]);
         }
 
         return redirect()->route('pembina.log-kegiatan.index')
-                        ->with('success', 'Log kegiatan berhasil disimpan untuk ' . count($tahananIds) . ' tahanan.');
+                        ->with('success', 'Log kegiatan berhasil disimpan untuk ' . count($napiIds) . ' napi.');
     }
 
     /**
@@ -85,7 +85,8 @@ class LogKegiatanController
      */
     public function show(string $id)
     {
-        //
+        $log = Log_kegiatan::with(['napi', 'kegiatan'])->findOrFail($id);
+        return view('pembina.log_kegiatan.show', compact('log'));
     }
 
     /**
@@ -94,6 +95,9 @@ class LogKegiatanController
     public function edit(string $id)
     {
         //
+        $kegiatans = Kegiatan::all();
+        $log = Log_kegiatan::findOrFail($id);
+        return view('pembina.log_kegiatan.edit', compact('log', 'kegiatans'));
     }
 
     /**
@@ -102,6 +106,20 @@ class LogKegiatanController
     public function update(Request $request, string $id)
     {
         //
+        $request->validate([
+            'kegiatan_id' => 'required|exists:kegiatans,id',
+            'tanggal'     => 'required|date',
+            'catatan'     => 'nullable|string|max:255'
+        ]);
+
+        $log = Log_kegiatan::findOrFail($id);
+        $log->update([
+            'kegiatan_id' => $request->input('kegiatan_id'),
+            'tanggal'     => $request->input('tanggal'),
+            'catatan'     => $request->input('catatan')
+        ]);
+        return redirect()->route('pembina.log-kegiatan.index')
+                        ->with('success', 'Log kegiatan berhasil diperbarui.');
     }
 
     /**
@@ -110,5 +128,9 @@ class LogKegiatanController
     public function destroy(string $id)
     {
         //
+        $log = Log_kegiatan::findOrFail($id);
+        $log->delete();
+        return redirect()->route('pembina.log-kegiatan.index')
+                        ->with('success', 'Log kegiatan berhasil dihapus.');
     }
 }

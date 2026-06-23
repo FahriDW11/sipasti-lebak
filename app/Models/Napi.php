@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tahanan extends Model
+class Napi extends Model
 {
     //
     protected $fillable = [
@@ -16,7 +16,7 @@ class Tahanan extends Model
         'alamat',
         'photo',
     ];
-    
+
     public function pembina()
     {
         return $this->belongsTo(Pembina::class);
@@ -25,5 +25,16 @@ class Tahanan extends Model
     public function log_kegiatan()
     {
         return $this->hasMany(Log_kegiatan::class);
+    }
+
+    //translate tanggal
+    public function getTglLahirFormatAttribute()
+    {
+        return \Carbon\Carbon::parse($this->attributes['tgl_lahir'])
+            ->translatedFormat('d F Y');
+    }
+    public function getJenisKelaminFormatAttribute()
+    {
+        return $this->attributes['jenis_kelamin'] === 'L' ? 'Laki-laki' : 'Perempuan';  
     }
 }

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tahanans', function (Blueprint $table) {
+        Schema::create('napis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pembina_id')->nullable()->constrained()->nullOnDelete();
             $table->string('nama');
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tahanans');
+        Schema::dropIfExists('napis');
     }
 };

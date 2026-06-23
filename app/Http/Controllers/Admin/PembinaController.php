@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 
 use App\Models\Pembina;
-use App\Models\Tahanan;
+use App\Models\Napi;
 use App\Models\User;
 
 class PembinaController
@@ -42,10 +42,28 @@ class PembinaController
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'jenis_kelamin' => 'required|in:L,P',
+            'email' => 'nullable|email|unique:pembinas,email',
+            'no_telp' => 'required|string|max:20',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ],
+        [
+            'nama.required' => 'Nama pembina wajib diisi.',
+            'jenis_kelamin.required' => 'Jenis kelamin wajib dipilih.',
+            'jenis_kelamin.in' => 'Jenis kelamin harus L atau P.',
+            'email.email' => 'Format email tidak valid.',
+            'email.unique' => 'Email sudah digunakan oleh pembina lain.',
+            'no_telp.required' => 'Nomor telepon wajib diisi.',
+            'photo.image' => 'File harus berupa gambar.',
+            'photo.mimes' => 'File harus berformat jpeg, png, jpg, atau gif.',
+            'photo.max' => 'Ukuran file tidak boleh lebih dari 2MB.',
+        ],);
 
         DB::transaction(function () use ($request) {
             $photoPath = $this->savePhoto($request);
-            $defaultPassword = 'admin123'; // Password default untuk pembina baru
+            $defaultPassword = env('DEFAULT_PEMBINA_PASSWORD'); // Password default untuk pembina baru
             $user_id = User::create([
                 'username' => $this->getUsername(),
                 'password' => $defaultPassword,
@@ -63,9 +81,9 @@ class PembinaController
      */
     public function show(string $id)
     {
-        $tahanans = Tahanan::where('pembina_id', null)->get();
+        $napis = Napi::where('pembina_id', null)->get();
         $pembina = Pembina::findOrFail($id);
-        return view($this->BASE_PATH . 'show', compact('pembina', 'tahanans'));
+        return view($this->BASE_PATH . 'show', compact('pembina', 'napis'));
     }
 
     /**
@@ -133,16 +151,16 @@ class PembinaController
         return redirect('/admin/pembina')->with('success', 'Pembina berhasil dihapus');
     }
 
-    public function assignTahanan(Request $request, string $id)
+    public function assignNapi(Request $request, string $id)
     {
         $request->validate([
-            'tahanan_ids' => 'required|array',
-            'tahanan_ids.*' => 'exists:tahanans,id',
+            'napi_ids' => 'required|array',
+            'napi_ids.*' => 'exists:napis,id',
         ]);
         $pembina = Pembina::findOrFail($id);
-        $tahananIds = $request->input('tahanan_ids');
-        Tahanan::whereIn('id', $tahananIds)->update(['pembina_id' => $pembina->id]);
-        return redirect()->back()->with('success', 'Tahanan berhasil ditugaskan ke pembina');
+        $napiIds = $request->input('napi_ids');
+        Napi::whereIn('id', $napiIds)->update(['pembina_id' => $pembina->id]);
+        return redirect()->back()->with('success', 'Napi berhasil ditugaskan ke pembina');
     }
 
     private function savePhoto(Request $request){

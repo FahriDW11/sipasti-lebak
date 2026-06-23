@@ -36,10 +36,10 @@
                 <h2 class="card-title">{{ $kegiatan->nama }}</h2>
                 <p>{{ Str::limit($kegiatan->deskripsi, 100) }}</p>
                 <div class="card-actions justify-end">
-                    <a href="{{ route('admin.kegiatan.show', $kegiatan->id) }}" class="btn btn-sm btn-info"><x-lucide-eye class="w-4 lg:w-6 text-white" /></a>
-                    <a href="{{ route('admin.kegiatan.edit', $kegiatan->id) }}" class="btn btn-sm btn-warning"><x-lucide-edit class="w-4 lg:w-6 text-white" /></a>
-                    <button type="button" onclick="openDeleteModal('{{ route('admin.kegiatan.destroy', $kegiatan->id) }}', '{{ $kegiatan->nama }}')" class="btn btn-sm btn-error">
-                        <x-lucide-trash class="w-4 lg:w-6 text-white" />
+                    <a href="{{ route('admin.kegiatan.show', $kegiatan->id) }}" class="btn btn-sm rounded-xl tooltip tooltip-top btn-info" data-tip="Lihat"><x-lucide-eye class="w-4 text-white" /></a>
+                    <a href="{{ route('admin.kegiatan.edit', $kegiatan->id) }}" class="btn btn-sm rounded-xl tooltip tooltip-top btn-warning" data-tip="Edit"><x-lucide-edit class="w-4 text-white" /></a>
+                    <button type="button" onclick="openDeleteModal('{{ route('admin.kegiatan.destroy', $kegiatan->id) }}', '{{ $kegiatan->nama }}')" class="btn btn-sm rounded-xl btn-error tooltip tooltip-top" data-tip="Hapus">
+                        <x-lucide-trash class="w-4 text-white" />
                     </button>
                 </div>
             </div>

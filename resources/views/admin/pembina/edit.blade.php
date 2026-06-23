@@ -5,8 +5,11 @@
 
 @section('admin-content')
 
-<div class="text-center mb-6">
+<div class="flex items-center justify-between mb-4 mx-4">
     <h1 class="text-2xl font-bold mb-4">Edit Pembina</h1>
+    <a href="{{ route('admin.pembina.index') }}" class="btn btn-sm btn-secondary text-xs tooltip tooltip-left" data-tip="Kembali ke Daftar Log Kegiatan">
+        <x-lucide-arrow-left class="w-4 lg:w-6 text-white" />
+    </a>
 </div>
 
 <form action="{{ route('admin.pembina.update', $pembina->id) }}" method="POST" enctype="multipart/form-data" class="flex flex-col w-full max-w-lg mx-auto mb-6">
